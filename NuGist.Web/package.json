@@ -1,0 +1,12 @@
+{
+  "name": "nugist",
+  "version": "0.1.0",
+  "description": "Create NuGet packages containing source file(s) and publish them easily.",
+  "dependencies": {
+    "monaco-editor": "^0.7.0"
+  },
+  "devDependencies": {
+  },
+  "author": "Massive Pixel d.o.o.",
+  "license": "MIT"
+}
