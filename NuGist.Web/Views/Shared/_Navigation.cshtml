@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NuGist.Web.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="nav navbar-nav">
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+    </ul>
+}
+else
+{
+}
