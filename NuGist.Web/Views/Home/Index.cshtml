@@ -2,33 +2,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-<button id="pack">pack</button>
-<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
-@section scripts
+@if (SignInManager.IsSignedIn(User))
 {
-    <script src="~/lib/monaco-editor/loader.js"></script>
-    <script>
-        require.config({ paths: { 'vs': '/lib/monaco-editor' } });
-        require(['vs/editor/editor.main'], function() {
-            var editor = monaco.editor.create(document.getElementById('container'), {
-                value: [
-                    'public class Program',
-                    '{',
-                    '}'
-                ].join('\n'),
-                language: 'csharp',
-                theme: "vs-dark"
-            });
-        });
-    </script>
+    <button id="pack">pack</button>
+    <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
 
-    <script>
-        $(function (){
-            $("#pack").click(function (e) {
-                e.preventDefault();
-                alert('hi');
+    @section scripts
+    {
+        <script src="~/lib/monaco-editor/loader.js"></script>
+        <script>
+            require.config({ paths: { 'vs': '/lib/monaco-editor' } });
+            require(['vs/editor/editor.main'], function () {
+                var editor = monaco.editor.create(document.getElementById('container'), {
+                    value: [
+                        'public class Program',
+                        '{',
+                        '}'
+                    ].join('\n'),
+                    language: 'csharp',
+                    theme: "vs-dark"
+                });
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $("#pack").click(function (e) {
+                    e.preventDefault();
+                    alert('hi');
+                })
             })
-        })
-    </script>
+        </script>
+    }
 }
