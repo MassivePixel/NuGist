@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using NuGist.Nuget;
 using System.IO;
 using System.Net.Mime;
+using System.Xml.Serialization;
 
 namespace NuGist.Web.Controllers
 {
@@ -34,6 +35,8 @@ namespace NuGist.Web.Controllers
 
             Directory.CreateDirectory(Path.Combine(dir, "input"));
             Directory.CreateDirectory(Path.Combine(dir, "output"));
+
+            var text = NuGist.Services.PackService.CreateNuspec();
 
             System.IO.File.WriteAllText(Path.Combine(dir, "input", filename), "hello");
             System.IO.File.WriteAllText(Path.Combine(dir, "input", slug + ".nuspec"),

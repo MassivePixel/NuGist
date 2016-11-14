@@ -7,34 +7,14 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <button id="pack">pack</button>
-    <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
-
-    @section scripts
-    {
-        <script src="~/lib/monaco-editor/loader.js"></script>
-        <script>
-            require.config({ paths: { 'vs': '/lib/monaco-editor' } });
-            require(['vs/editor/editor.main'], function () {
-                var editor = monaco.editor.create(document.getElementById('container'), {
-                    value: [
-                        'public class Program',
-                        '{',
-                        '}'
-                    ].join('\n'),
-                    language: 'csharp',
-                    theme: "vs-dark"
-                });
-            });
-        </script>
-
-        <script>
-            $(function () {
-                $("#pack").click(function (e) {
-                    e.preventDefault();
-                    alert('hi');
-                })
-            })
-        </script>
-    }
 }
+
+<div class="jumbotron well">
+    <h3>Create NuGet package from source files in three easy steps</h3>
+
+    <ul id="steps">
+        <li><span class="step">Step 1:</span> Create a new gist <a asp-controller="gist" asp-action="new">here</a></li>
+        <li><span class="step">Step 2:</span> Fill out necessary properties</li>
+        <li><span class="step">Step 3:</span> Publish your gist as a NuGet package</li>
+    </ul>
+</div>

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "New gist";
+}
+
+<div class="well form-horizontal">
+    <div class="form-group">
+        <label for="filename" class="sr-only">File name:</label>
+        <input type="text" class="form-control" style="margin-left: 30px" id="filename" placeholder="filename.cs">
+        <label for="version" class="sr-only">Version:</label>
+        <input type="text" class="form-control" style="margin-left: 30px" id="version" value="0.0.1">
+    </div>
+
+    <div class="">
+        <div id="code" style="width:100%;height:400px;border:1px solid grey"></div>
+    </div>
+
+    <button id="btn-create" type="submit" class="btn btn-raised btn-primary">Create</button>
+</div>
+
+@section scripts
+{
+    <script src="~/lib/monaco-editor/loader.js"></script>
+    <script>
+        var editor = null;
+
+        require.config({ paths: { 'vs': '/lib/monaco-editor' } });
+        require(['vs/editor/editor.main'], function () {
+            editor = monaco.editor.create(document.getElementById('code'), {
+                value: [
+                    '// paste C# code here'
+                ].join('\n'),
+                language: 'csharp',
+                //theme: "vs-dark"
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#btn-create").click(function (e) {
+                $.ajax({
+                    method: "post",
+                    url: "/api/gist/create",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        version: $("#version").val(),
+                        filename: $("#filename").val(),
+                        content: editor.getValue(),
+                        type: "csharp"
+                    }),
+                    success: function (data) {
+                        window.location = '/gist/detail/' + data.id;
+                    }
+                })
+            })
+        })
+    </script>
+}

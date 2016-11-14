@@ -8,9 +8,10 @@ using NuGist.Web.Data;
 namespace NuGist.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161114164414_Gist")]
+    partial class Gist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -241,7 +242,7 @@ namespace NuGist.Web.Data.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("GistFiles");
+                    b.ToTable("GistFile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

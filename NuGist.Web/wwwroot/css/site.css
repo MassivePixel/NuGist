@@ -48,3 +48,17 @@ textarea {
     display: none
   }
 }
+
+
+#steps {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+span.step {
+    display: inline-block;
+    background-color: lightblue;
+    padding: 12px 20px;
+    margin-bottom: 1.2em;
+    margin-right: 1.4em;
+}

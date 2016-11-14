@@ -39,7 +39,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "NuGist.Model": "1.0.0-*"
   },
 
   "tools": {
@@ -60,6 +61,9 @@
     "net46": {
       "dependencies": {
         "NuGist.Nuget": {
+          "target": "project"
+        },
+        "NuGist.Services": {
           "target": "project"
         }
       }

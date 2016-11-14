@@ -36,6 +36,23 @@
           "copyToOutput": true
         }
       }
+    },
+    "NuGist.Services/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/NuGist.Services.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/NuGist.Services.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/NuGist.Services.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
     }
   }
 }
