@@ -62,3 +62,7 @@ span.step {
     margin-bottom: 1.2em;
     margin-right: 1.4em;
 }
+
+span.mono {
+    font-family: Consolas, Courier New, Courier, monospace;
+}

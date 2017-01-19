@@ -1,4 +1,7 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../app/app.js" />
+/// <reference path="../webpack.config.js" />
+/// <reference path="dist/main.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />

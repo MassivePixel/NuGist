@@ -18,8 +18,8 @@ namespace NuGist.Web.Controllers
         }
 
         public IActionResult Index() => View();
-
         public IActionResult Error() => View();
+        public IActionResult React() => View();
 
         public string Root => Path.Combine(_hostingEnvironment.ContentRootPath, "temp");
 
