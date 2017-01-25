@@ -3,16 +3,24 @@ using Newtonsoft.Json;
 using NuGist.Model;
 using NuGist.Services;
 using NuGist.Web.Data;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 
 namespace NuGist.Web.Services.Gists
 {
     public static class GistsService
     {
+        public static async Task<ResultOrError<List<GistViewModel>>> GetGistsForUserAsync(this ApplicationDbContext context, string userId)
+        {
+            var gists = await (from g in context.Gists
+                               where g.CreatedById == userId
+                               select g).ToListAsync();
+
+            return gists.Select(g => new GistViewModel(g)).ToList();
+        }
+
         public static async Task<ResultOrError<GistViewModel>> GetGistDetailsAsync(this ApplicationDbContext context, int id, string userId)
         {
             var gist = await (from g in context.Gists

@@ -27,12 +27,14 @@ namespace NuGist.Web.Services.Gists
         public string Version { get; set; }
         public List<GistFileViewModel> Files { get; set; }
 
-        public GistViewModel(Gist gist, ICollection<GistFile> files)
+        public GistViewModel(Gist gist, ICollection<GistFile> files = null)
         {
             Id = gist.Id;
             Name = gist.Name;
             Version = gist.Version;
-            Files = files.Select(f => new GistFileViewModel(f)).ToList();
+
+            if (files != null)
+                Files = files.Select(f => new GistFileViewModel(f)).ToList();
         }
     }
 }

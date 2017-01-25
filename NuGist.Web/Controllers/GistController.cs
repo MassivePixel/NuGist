@@ -16,6 +16,9 @@ namespace NuGist.Web.Controllers
         {
         }
 
+        public async Task<ActionResult> Index()
+            => HandleView(await context.GetGistsForUserAsync(GetUserId()));
+
         public ActionResult New() => View();
 
         public async Task<ActionResult> Detail(int id)

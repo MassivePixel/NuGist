@@ -1,0 +1,21 @@
+﻿@model IEnumerable<NuGist.Web.Services.Gists.GistViewModel>
+@{
+    ViewData["Title"] = "Gists";
+}
+
+<h2>Gists</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Gist name</th>
+        <th>Current version</th>
+    </tr>
+
+    @foreach (var item in @Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Version</td>
+        </tr>
+    }
+</table>
