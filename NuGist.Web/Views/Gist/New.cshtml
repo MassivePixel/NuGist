@@ -5,9 +5,15 @@
 <div class="well form-horizontal">
     <div class="form-group">
         <label for="filename" class="sr-only">File name:</label>
-        <input type="text" class="form-control" style="margin-left: 30px" id="filename" placeholder="filename.cs">
+        <input type="text" class="form-control" style="margin-left: 30px" id="filename" placeholder="filename.cs" minlength="2" required>
         <label for="version" class="sr-only">Version:</label>
-        <input type="text" class="form-control" style="margin-left: 30px" id="version" value="0.0.1">
+        <input type="text" class="form-control" style="margin-left: 30px" id="version" value="0.0.1" required>
+    </div>
+
+    <div class="form-group">
+        <div class="validation-summary-valid" data-valmsg-summary="true">
+            <ul><li style="display:none"></li></ul>
+        </div>
     </div>
 
     <div class="">
@@ -50,6 +56,20 @@
                     }),
                     success: function (data) {
                         window.location = '/gist/detail/' + data.id;
+                    },
+                    error: function (xhr, status, error) {
+                        if (xhr.status === 400) {
+                            if (xhr.responseJSON) {
+                                for (var i in xhr.responseJSON) {
+                                    var fieldName = i.toLowerCase();
+                                    $("#" + fieldName).css('border', 'solid 1px red')
+                                    $("")
+                                }
+                            }
+                            else {
+                                alert('unable to create new gist');
+                            }
+                        }
                     }
                 })
             })

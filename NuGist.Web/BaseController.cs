@@ -48,7 +48,27 @@ namespace NuGist.Web.Controllers
             base.Dispose(disposing);
         }
 
-        protected IActionResult Handle<T>(ResultOrError<T> result)
+        protected ActionResult HandleView<T>(ResultOrError<T> result)
+        {
+            if (result.IsError)
+            {
+                if (!string.IsNullOrWhiteSpace(result.Error))
+                    return BadRequest(new
+                    {
+                        error = result.Error
+                    });
+
+                switch (result.CommonError)
+                {
+                    case CommonErrors.NotFound:
+                        return NotFound();
+                }
+            }
+
+            return View(result.Result);
+        }
+
+        protected ActionResult HandleOk<T>(ResultOrError<T> result)
         {
             if (result.IsError)
             {
