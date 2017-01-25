@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NuGist.Model;
 using NuGist.Web.Data;
-using NuGist.Web.Models;
 using NuGist.Web.Services;
 
 namespace NuGist.Web
@@ -45,7 +44,11 @@ namespace NuGist.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(Filters.ModelStateValidationFilter));
+                options.Filters.Add(typeof(Filters.NullArgumentsFilter));
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

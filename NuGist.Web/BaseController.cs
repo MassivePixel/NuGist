@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGist.Model;
+using NuGist.Services;
 using NuGist.Web.Data;
 using System;
 
@@ -45,6 +46,26 @@ namespace NuGist.Web.Controllers
                 context.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected IActionResult Handle<T>(ResultOrError<T> result)
+        {
+            if (result.IsError)
+            {
+                if (!string.IsNullOrWhiteSpace(result.Error))
+                    return BadRequest(new
+                    {
+                        error = result.Error
+                    });
+
+                switch (result.CommonError)
+                {
+                    case CommonErrors.NotFound:
+                        return NotFound();
+                }
+            }
+
+            return Ok(result.Result);
         }
     }
 }

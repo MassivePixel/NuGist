@@ -36,7 +36,7 @@ namespace NuGist.Web.Controllers
             Directory.CreateDirectory(Path.Combine(dir, "input"));
             Directory.CreateDirectory(Path.Combine(dir, "output"));
 
-            var text = NuGist.Services.PackService.CreateNuspec();
+            var text = NuGist.Services.NuGet.PackService.CreateNuspec();
 
             System.IO.File.WriteAllText(Path.Combine(dir, "input", filename), "hello");
             System.IO.File.WriteAllText(Path.Combine(dir, "input", slug + ".nuspec"),

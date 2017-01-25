@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NuGist.Services
+namespace NuGist.Services.NuGet
 {
     public class Utf8StringWriter : StringWriter
     {
