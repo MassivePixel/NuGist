@@ -1,52 +1,41 @@
 ﻿using NuGet.Commands;
 using NuGet.Common;
+using NuGet.Configuration;
 using NuGet.Packaging;
 using NuGet.Versioning;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NuGist.Nuget
 {
-    class ConsoleLogger : ILogger
-    {
-        public void LogDebug(string data) => Console.WriteLine($"Debug: {data}");
-
-        public void LogError(string data) => Console.WriteLine($"Error: {data}");
-
-        public void LogErrorSummary(string data) => Console.WriteLine($"Error summary: {data}");
-
-        public void LogInformation(string data) => Console.WriteLine($"Information: {data}");
-
-        public void LogInformationSummary(string data) => Console.WriteLine($"Information summary: {data}");
-
-        public void LogMinimal(string data) => Console.WriteLine($"Minimal: {data}");
-
-        public void LogVerbose(string data) => Console.WriteLine($"Verbose: {data}");
-
-        public void LogWarning(string data) => Console.WriteLine($"Warning: {data}");
-    }
-
     public class PackParams
     {
+        public string BasePath { get; set; }
         public string NuspecFileName { get; set; }
         public string Version { get; set; }
+        public string OutputDirectory { get; set; }
         public Dictionary<string, string> Properties = new Dictionary<string, string>();
     }
 
-    public class Commands
+    public static class Commands
     {
         static string MinClientVersion = "3.0.0";
         static Version _minClientVersionValue;
 
-        public void Pack(string root, PackParams p)
+        public static void Pack(string root, PackParams p)
         {
             var packArgs = new PackArgs();
             packArgs.Logger = new ConsoleLogger();
-            packArgs.Arguments = new string[] { Path.Combine(root, "input", p.NuspecFileName), "-Version", p.Version };
-            packArgs.OutputDirectory = Path.Combine(root, "output");
-            packArgs.BasePath = Path.Combine(root, "input");
+            packArgs.Arguments = new string[]
+            {
+                Path.Combine(p.BasePath, p.NuspecFileName),
+                "-Version", p.Version
+            };
+            packArgs.OutputDirectory = p.OutputDirectory;
+            packArgs.BasePath = p.BasePath;
 
             // The directory that contains msbuild
             packArgs.MsBuildDirectory = null;// new Lazy<string>(() => @"C:\Program Files (x86)\MSBuild\14.0\Bin");
@@ -97,6 +86,17 @@ namespace NuGist.Nuget
 
             var packCommandRunner = new PackCommandRunner(packArgs, null);
             packCommandRunner.BuildPackage();
+        }
+
+        public static async Task Push(string path, ILogger logger)
+        {
+            var settings = new NullSettings();
+            await PushRunner.Run(
+                settings,
+                new PackageSourceProvider(settings),
+                path,
+                "https://www.myget.org/F/nugist-test/api/v3/index.json", "",
+                null, null, 60, false, true, logger);
         }
     }
 }
