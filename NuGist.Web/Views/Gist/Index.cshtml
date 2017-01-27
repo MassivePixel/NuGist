@@ -13,7 +13,7 @@
 
     @foreach (var item in @Model)
     {
-        <tr>
+        <tr data-href="@Url.Action("Detail", new { id = item.Id })">
             <td>@item.Name</td>
             <td>@item.Version</td>
         </tr>
